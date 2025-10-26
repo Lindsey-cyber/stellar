@@ -1,19 +1,22 @@
 import {
   Contract,
-  SorobanRpc,
   TransactionBuilder,
   Networks,
-  Operation,
-  Address,
   xdr,
   scValToNative,
-  nativeToScVal
+  nativeToScVal,
+  rpc
 } from '@stellar/stellar-sdk'
+
 import { NETWORK_CONFIG, TOKEN_CONTRACTS, BLEND_CONTRACTS } from '@/config/contracts'
 
 // Initialize Soroban RPC server
 export const getSorobanServer = () => {
-  return new SorobanRpc.Server(NETWORK_CONFIG.sorobanRpc)
+  if (!rpc || !rpc.Server) {
+    console.error('[getSorobanServer] rpc not available:', rpc)
+    throw new Error('rpc.Server is not available. Please check @stellar/stellar-sdk installation.')
+  }
+  return new rpc.Server(NETWORK_CONFIG.sorobanRpc)
 }
 
 // Helper to build contract invocation
@@ -64,7 +67,7 @@ export const tokenHelpers = {
 
       const result = await server.simulateTransaction(transaction)
 
-      if (SorobanRpc.Api.isSimulationSuccess(result)) {
+      if (rpc.Api.isSimulationSuccess(result)) {
         const balance = scValToNative(result.result!.retval)
         return balance.toString()
       }
@@ -200,7 +203,7 @@ export const blendPoolHelpers = {
 
       const result = await server.simulateTransaction(transaction)
 
-      if (SorobanRpc.Api.isSimulationSuccess(result)) {
+      if (rpc.Api.isSimulationSuccess(result)) {
         return scValToNative(result.result!.retval)
       }
 

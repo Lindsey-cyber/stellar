@@ -26,6 +26,9 @@ import DEFINDEXIntegration from '@/components/DEFINDEXIntegration'
 import ComplianceSection from '@/components/ComplianceSection'
 import Footer from '@/components/Footer'
 import Navigation from '@/components/Navigation'
+import TrancheInvestment from '@/components/TrancheInvestment'
+import WalletDebug from '@/components/WalletDebug'
+import InitializeContract from '@/components/InitializeContract'
 
 export default function Home() {
   const [activeTab, setActiveTab] = useState('overview')
@@ -33,8 +36,13 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900">
       <Navigation />
-      
+
       <main className="relative">
+        {/* Initialize Contract Section - TEMPORARY */}
+        <section className="py-20 px-4 sm:px-6 lg:px-8">
+          <InitializeContract />
+        </section>
+
         {/* Hero Section */}
         <HeroSection />
         
@@ -59,6 +67,29 @@ export default function Home() {
         <section className="py-20 px-4 sm:px-6 lg:px-8">
           <div className="max-w-7xl mx-auto">
             <WalletConnection />
+          </div>
+        </section>
+
+        {/* Tranche Investment - LIVE CONTRACT INTEGRATION */}
+        <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-slate-900 to-purple-900">
+          <div className="max-w-7xl mx-auto">
+            <div className="text-center mb-12">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                className="inline-block px-4 py-2 bg-green-500 bg-opacity-20 border border-green-500 rounded-full mb-4"
+              >
+                <span className="text-green-400 font-semibold text-sm">LIVE ON TESTNET</span>
+              </motion.div>
+              <h2 className="text-4xl md:text-5xl font-bold mb-4">
+                Real Tranche Contract Integration
+              </h2>
+              <p className="text-xl text-gray-300 max-w-3xl mx-auto">
+                Interact directly with our deployed Soroban smart contract on Stellar Testnet
+              </p>
+            </div>
+            <TrancheInvestment />
           </div>
         </section>
         
@@ -88,6 +119,9 @@ export default function Home() {
         {/* Footer */}
         <Footer />
       </main>
+
+      {/* Debug Panel */}
+      <WalletDebug />
     </div>
   )
 }

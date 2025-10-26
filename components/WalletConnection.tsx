@@ -61,8 +61,10 @@ export default function WalletConnection() {
     try {
       await connect()
       toast.success('Wallet connected successfully!')
-    } catch (err) {
-      toast.error('Failed to connect wallet')
+    } catch (err: any) {
+      console.error('[WalletConnection] Connect error:', err)
+      const errorMsg = err?.message || 'Failed to connect wallet'
+      toast.error(errorMsg)
     }
   }
 
@@ -145,7 +147,17 @@ export default function WalletConnection() {
           <p className="text-gray-400 mb-8 max-w-md mx-auto">
             Connect your Soroban-compatible wallet to start investing in RWA-backed structured products
           </p>
-          
+
+          {error && (
+            <div className="mb-6 p-4 bg-red-500/10 border border-red-500/20 rounded-xl max-w-md mx-auto">
+              <div className="flex items-center space-x-2 text-red-400">
+                <AlertTriangle className="w-5 h-5" />
+                <span className="font-semibold">Connection Error</span>
+              </div>
+              <p className="text-red-300 text-sm mt-2">{error}</p>
+            </div>
+          )}
+
           <button
             onClick={handleConnect}
             disabled={isLoading}
