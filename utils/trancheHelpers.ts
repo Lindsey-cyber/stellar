@@ -122,7 +122,16 @@ export const trancheContractHelpers = {
 
       // Get account from network
       const sourceAccount = await server.getAccount(from)
-      console.log('[trancheHelpers] Account loaded, sequence:', sourceAccount.sequence)
+      let seq = ''
+      if (sourceAccount && typeof sourceAccount === 'object') {
+        if ('sequence' in sourceAccount && typeof (sourceAccount as any).sequence === 'string') {
+          seq = (sourceAccount as any).sequence
+        } else if (typeof (sourceAccount as any).sequenceNumber === 'function') {
+          // 某些 SDK 可能以方法提供序列号
+          seq = (sourceAccount as any).sequenceNumber()
+        }
+      }
+      console.log('[trancheHelpers] Account loaded, sequence:', seq)
 
       // Convert from address to Address object
       const fromAddr = new Address(from)
@@ -197,7 +206,16 @@ export const trancheContractHelpers = {
 
       // Get account from network
       const sourceAccount = await server.getAccount(from)
-      console.log('[trancheHelpers] Account loaded, sequence:', sourceAccount.sequence)
+            let seq = ''
+      if (sourceAccount && typeof sourceAccount === 'object') {
+        if ('sequence' in sourceAccount && typeof (sourceAccount as any).sequence === 'string') {
+          seq = (sourceAccount as any).sequence
+        } else if (typeof (sourceAccount as any).sequenceNumber === 'function') {
+          // 某些 SDK 可能以方法提供序列号
+          seq = (sourceAccount as any).sequenceNumber()
+        }
+      }
+      console.log('[trancheHelpers] Account loaded, sequence:', seq)
 
       // Convert from address to Address object
       const fromAddr = new Address(from)
