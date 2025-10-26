@@ -95,7 +95,17 @@ export default function BlendPoolInteraction() {
   const signedXDR = await signTransaction(tx.toXDR())
       // submit signed transaction via Soroban RPC
       const res = await submitSignedTransaction(signedXDR)
-      setTxHash(res.hash || res.transactionHash || '')
+      if (res && typeof res === 'object') {
+        if ('hash' in res && typeof (res as any).hash === 'string') {
+          setTxHash((res as any).hash)
+        } else if ('transactionHash' in res && typeof (res as any).transactionHash === 'string') {
+          setTxHash((res as any).transactionHash)
+        } else {
+          setTxHash('')
+        }
+      } else {
+        setTxHash('')
+      }
       setAmount('')
     } catch (err) {
       console.error('Failed to transfer RWA benefit:', err)
