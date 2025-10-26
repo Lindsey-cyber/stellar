@@ -22,7 +22,7 @@
     "@radix-ui/react-tabs": "^1.0.4",
     "@radix-ui/react-toast": "^1.1.5",
     "@radix-ui/react-tooltip": "^1.0.7",
-    "@remix-run/dev",
+    "@remix-run/dev": "^2.0.0",
     "@stellar/freighter-api": "^5.0.0",
     "@stellar/stellar-sdk": "^14.3.0",
     "@types/node": "^20.0.0",
