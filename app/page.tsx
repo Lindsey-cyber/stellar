@@ -28,7 +28,6 @@ import Footer from '@/components/Footer'
 import Navigation from '@/components/Navigation'
 import TrancheInvestment from '@/components/TrancheInvestment'
 import WalletDebug from '@/components/WalletDebug'
-import InitializeContract from '@/components/InitializeContract'
 
 export default function Home() {
   const [activeTab, setActiveTab] = useState('overview')
@@ -38,10 +37,6 @@ export default function Home() {
       <Navigation />
 
       <main className="relative">
-        {/* Initialize Contract Section - TEMPORARY */}
-        <section className="py-20 px-4 sm:px-6 lg:px-8">
-          <InitializeContract />
-        </section>
 
         {/* Hero Section */}
         <HeroSection />
